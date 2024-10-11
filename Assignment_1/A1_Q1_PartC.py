@@ -36,7 +36,6 @@ for label in tqdm(labels, desc="Generating samples"):
 samples = np.array(samples)
 print("All samples generated.")
 
-# Part C: Fisher Linear Discriminant Analysis (LDA) Classifier
 # Estimating the class means and covariance matrices
 mean_0_est = np.mean(samples[labels == 0], axis=0)
 mean_1_est = np.mean(samples[labels == 1], axis=0)

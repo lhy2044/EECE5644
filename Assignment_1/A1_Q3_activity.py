@@ -12,9 +12,6 @@ from sklearn.svm import SVC
 from sklearn.neural_network import MLPClassifier
 from tqdm import tqdm
 
-# Load the Human Activity Recognition dataset
-# Dataset URL: https://archive.ics.uci.edu/ml/datasets/human+activity+recognition+using+smartphones
-
 # Load the data from txt files
 X_train = pd.read_csv('human+activity+recognition+using+smartphones/UCI HAR Dataset/train/X_train.txt', delim_whitespace=True, header=None)
 Y_train = pd.read_csv('human+activity+recognition+using+smartphones/UCI HAR Dataset/train/y_train.txt', delim_whitespace=True, header=None)
@@ -46,9 +43,7 @@ har_data = pd.concat([har_train, har_test], ignore_index=True)
 activity_mapping = {label: idx for idx, label in enumerate(activity_labels.values())}
 har_data['activity'] = har_data['activity'].map(activity_mapping)
 
-# Part A: Dataset Summary Statistics
-
-# 1. Dataset Overview
+# Dataset Overview
 print("\nDataset Overview:\n")
 print(har_data.describe())
 
@@ -65,7 +60,7 @@ sns.heatmap(pd.get_dummies(har_data['activity']).corr(), annot=True, cmap='coolw
 plt.title('Correlation Heatmap')
 plt.show()
 
-# 2. Class Distribution
+# Class Distribution
 print("\nClass Distribution:\n")
 print(har_data['activity'].value_counts())
 har_data['activity'].value_counts().plot(kind='bar', color='skyblue')
@@ -73,8 +68,6 @@ plt.title('Class Distribution')
 plt.xlabel('Activity Label')
 plt.ylabel('Frequency')
 plt.show()
-
-# Part B: Model Training and Evaluation
 
 # Splitting the dataset into training and testing sets
 X = har_data.drop(['activity'], axis=1)
@@ -118,8 +111,6 @@ for name, model in tqdm(models.items(), desc="Training models"):
         'ROC AUC': roc_auc
     }
 
-# Part C: Comparison and Insights
-
 print("\nModel Comparison:\n")
 comparison_df = pd.DataFrame(results).T
 print(comparison_df)
@@ -130,6 +121,3 @@ plt.title('Model Accuracy Comparison')
 plt.xlabel('Model')
 plt.ylabel('Accuracy')
 plt.show()
-
-# Part D: Key Takeaways
-# The printed results and plots provide insights into model performance and trade-offs. Use these to select the best model based on accuracy, interpretability, and other specific requirements.
